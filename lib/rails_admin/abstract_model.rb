@@ -88,6 +88,7 @@ module RailsAdmin
             yield(association, child)
           end
         when :has_many
+          return unless object.try(association.name) # Rails 4 creates an internal has_many for HABTM that has no class methods.
           object.send(association.name).each do |child| # rubocop:disable ShadowingOuterLocalVariable
             yield(association, child)
           end
